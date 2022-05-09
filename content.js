@@ -130,11 +130,11 @@ async function init() {
 
         if (opp == 'db') {
                 if (DEBUG) console.log('Opponent has yet to berserk. Starting interval.');
-                let waitForBerserk = setInterval(() => {
+                let waitForBerserk = setInterval(async () => {
                         if (playerBerserked(opp_side)) {
                                 if (DEBUG) console.log('Opponent has now berserked ✅');
                                 clearInterval(waitForBerserk);
-                                let berserk = shouldBerserk(tc, streak, side, 'b', rating, opp_rating);
+                                let berserk = await shouldBerserk(tc, streak, side, 'b', rating, opp_rating);
                                 setBerserkCSS(berserk);
                         }
                         if (gameInProgress()) {
@@ -144,7 +144,7 @@ async function init() {
                 }, 100);
         }
 
-        let berserk = shouldBerserk(tc, streak, side, opp, rating, opp_rating);
+        let berserk = await shouldBerserk(tc, streak, side, opp, rating, opp_rating);
         setBerserkCSS(berserk);
 }
 
