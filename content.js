@@ -29,11 +29,11 @@ function getPixel(ctx, r1, r2) {
         return ctx.getImageData(x, y, 1, 1);
 }
 
-// returns true if the pixel is closer to being white than black
-function isWhite(px) {
+// returns true if the pixel is closer to being black than white
+function isBlack(px) {
         let [r, g, b, a] = px.data;
         if (a === 0) return null; // pixel out of bounds
-        return Math.sqrt(Math.pow(r, 2) + Math.pow(g, 2) + Math.pow(b, 2)) < Math.sqrt(195075) / 2;
+        return Math.sqrt(Math.pow(r, 2) + Math.pow(g, 2) + Math.pow(b, 2)) > Math.sqrt(195075) / 2;
 }
 
 async function shouldBerserk(tc='1+0', streak=0, side='w', opp='db', rating=1500, opp_rating=1500) {
@@ -46,7 +46,7 @@ async function shouldBerserk(tc='1+0', streak=0, side='w', opp='db', rating=1500
         await drawImage(ctx, path);
 
         let pixel = getPixel(ctx, rating, opp_rating)
-        return isWhite(pixel); // should berserk if pixel is white
+        return isBlack(pixel); // should berserk if pixel is white
 }
 
 async function getStreak(tournamentId='7War3P3R', username='Andrew-9') {
