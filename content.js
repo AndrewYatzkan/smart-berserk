@@ -1,4 +1,4 @@
-const DEBUG = false;
+const DEBUG = true;
 const IMG_SIZE = 253; // px
 const C_ID = 'sbCanvas'; // canvas id
 const MAX_RATING = 3200;
@@ -26,14 +26,14 @@ async function drawImage(ctx, path) {
 function getPixel(ctx, r1, r2) {
         let x = (r1 - MIN_RATING) / (MAX_RATING - MIN_RATING) * (IMG_SIZE - 1) | 0;
         let y = (r2 - MIN_RATING) / (MAX_RATING - MIN_RATING) * (IMG_SIZE - 1) | 0;
-        return ctx.getImageData(x, y, 1, 1);
+        return ctx.getImageData(x, (IMG_SIZE - 1) - y, 1, 1);
 }
 
 // returns true if the pixel is closer to being black than white
 function isBlack(px) {
         let [r, g, b, a] = px.data;
         if (a === 0) return null; // pixel out of bounds
-        return Math.sqrt(Math.pow(r, 2) + Math.pow(g, 2) + Math.pow(b, 2)) > Math.sqrt(195075) / 2;
+        return Math.sqrt(Math.pow(r, 2) + Math.pow(g, 2) + Math.pow(b, 2)) < Math.sqrt(195075) / 2;
 }
 
 async function shouldBerserk(tc='1+0', streak=0, side='w', opp='db', rating=1500, opp_rating=1500) {
@@ -46,7 +46,7 @@ async function shouldBerserk(tc='1+0', streak=0, side='w', opp='db', rating=1500
         await drawImage(ctx, path);
 
         let pixel = getPixel(ctx, rating, opp_rating)
-        return isBlack(pixel); // should berserk if pixel is white
+        return isBlack(pixel); // should berserk if pixel is black
 }
 
 async function getStreak(tournamentId='7War3P3R', username='Andrew-9') {
@@ -76,7 +76,7 @@ function gameInProgress() {
         return !!document.querySelector('div.bar');
 }
 
-function addBerserkCSS(berserk) {
+function setBerserkCSS(berserk) {
         if (DEBUG) console.log(`Setting berserk CSS to ${berserk ? 'BERSERK' : 'DON\'T BERSERK'} ✅`);
         // ...
 }
