@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Smart Berserk | Lichess",
+  "version": "1.0.0",
+
+  // "description": "...",
+
+  // chrome store icon
+  // "icons": {
+  //   "128": "neutral.png"
+  // },
+
+  "author": "Andrew Yatzkan",
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://lichess.org/*"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  
+  "web_accessible_resources": [
+    {
+      "resources": [ "*.png" ],
+      "matches": ["https://lichess.org/*"]
+    }
+  ]
+}
