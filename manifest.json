@@ -3,12 +3,11 @@
   "name": "Smart Berserk | Lichess",
   "version": "1.0.0",
 
-  // "description": "...",
-
-  // chrome store icon
-  // "icons": {
-  //   "128": "neutral.png"
-  // },
+  "description": "Tells you when to berserk in a lichess arena tournament game using the power of statistics!",
+  
+  "icons": {
+    "128": "img/icon.png"
+  },
 
   "author": "Andrew Yatzkan",
 
@@ -17,13 +16,14 @@
       "matches": [
         "https://lichess.org/*"
       ],
-      "js": ["content.js"]
+      "js": ["particles.js", "content.js"],
+      "css": ["gold-icon.css"]
     }
   ],
   
   "web_accessible_resources": [
     {
-      "resources": [ "*.png" ],
+      "resources": ["*.png", "*.json"],
       "matches": ["https://lichess.org/*"]
     }
   ]

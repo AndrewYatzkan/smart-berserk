@@ -1,4 +1,4 @@
-const DEBUG = true;
+const DEBUG = false;
 const IMG_SIZE = 253; // px
 const C_ID = 'sbCanvas'; // canvas id
 const MAX_RATING = 3200;
@@ -78,7 +78,16 @@ function gameInProgress() {
 
 function setBerserkCSS(berserk) {
         if (DEBUG) console.log(`Setting berserk CSS to ${berserk ? 'BERSERK' : 'DON\'T BERSERK'} ✅`);
-        // ...
+        const berserkEl = document.getElementsByClassName('go-berserk')[0];
+        if (!berserk) return berserkEl.classList.remove('berserk-ai');
+        const particlesJSON = chrome.runtime.getURL('/particles.json');
+        console.log(particlesJSON);
+        berserkEl.classList.add('sb-berserk');
+        berserkEl.id = 'berserk-ai-particles';
+
+        particlesJS.load('berserk-ai-particles', particlesJSON, () => {
+                console.log('callback - particles.js config loaded');
+        });
 }
 
 async function init() {

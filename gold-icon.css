@@ -1,0 +1,14 @@
+.sb-berserk::before {
+    text-shadow: 0 0 5px rgb(250 207 52);
+}
+
+.sb-berserk {
+    color: #facf34 !important;
+}
+
+.particles-js-canvas-el {
+    position: absolute;
+    z-index: 10000;
+    left: 65%;
+    width: 50px;
+}
